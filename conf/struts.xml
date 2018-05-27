@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<package name="default" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor-stack name="sshandappStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="sshandappStack"></default-interceptor-ref>
+		<action name="getjson" class="com.sshapp.actions.PersonAction1"
+			method="json">
+			<result type="json"></result>
+		</action>
+		<action name="loginjson" class="com.sshapp.actions.PersonAction1"
+			method="login">
+			<result type="json"></result>
+		</action>
+		<action name="selectjson" class="com.sshapp.actions.PersonAction1"
+			method="select">
+			<result type="json"></result>
+		</action>
+		<action name="emp-*" class="personAction" method="{1}">
+			<result name="list">/WEB-INF/views/emp-list.jsp</result>
+			<result name="save">/WEB-INF/views/emp-save.jsp</result>
+			<result name="select">/WEB-INF/views/emp-select.jsp</result>
+		</action>
+		<action name="selectjump" class="personAction" method="selectjump">
+		<result name="true">/WEB-INF/views/emp-true.jsp</result>
+		<result name="false">/WEB-INF/views/emp-false.jsp</result>
+		</action>
+	</package>
+	<!-- <package name="default" namespace="/" extends="struts-default"> <action 
+		name="emp-*" class="personAction" method="{1}"> <result name="list">/WEB-INF/views/emp-list.jsp</result> 
+		</action> </package> -->
+</struts>
